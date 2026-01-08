@@ -11,21 +11,6 @@ Eatzy tidak dibuat sebagai aplikasi delivery berskala besar. Fokus utama aplikas
 Selain menjadi solusi pemesanan makanan, Eatzy juga dikembangkan sebagai proyek pembelajaran aplikasi mobile menggunakan Flutter. Proyek ini menjadi media untuk menggabungkan desain antarmuka, logika aplikasi, dan integrasi backend ke dalam satu aplikasi yang memiliki konteks nyata dan dekat dengan kehidupan sehari-hari mahasiswa.
 
 ---
-
-## 🚀 Fitur Utama
-- Login & Register  
-- Daftar menu kantin / tenant  
-- Pemesanan makanan  
-- Keranjang & checkout  
-- Status pesanan  
-- Riwayat pesanan  
-
-## 🛠️ Tech Stack
-- **Framework:** Flutter  
-- **Language:** Dart  
-- **State Management:** Provider / Riverpod  
-- **Backend:** Supabase / Firebase / REST API  
-
 ## 🎯 Tujuan Proyek
 - Mengembangkan aplikasi mobile menggunakan Flutter  
 - Menerapkan konsep UI/UX dan manajemen state  
