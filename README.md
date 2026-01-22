@@ -6,9 +6,11 @@
   <img src="https://img.shields.io/badge/Flutter-3.x-blue?logo=flutter" />
   <img src="https://img.shields.io/badge/Dart-3.x-0175C2?logo=dart" />
   <img src="https://img.shields.io/badge/Platform-Android%20%7C%20iOS-green" />
+  <img src="https://img.shields.io/badge/Supabase-Backend-3ECF8E?logo=supabase&logoColor=white" />
   <img src="https://img.shields.io/badge/Status-Development-orange" />
   <img src="https://img.shields.io/badge/License-MIT-purple" />
 </p>
+
 
 <h1 align="center">🍽️ Eatzy</h1>
 
@@ -45,7 +47,7 @@ Eatzy tidak dibuat sebagai aplikasi delivery berskala besar. Fokus utama aplikas
 - Flutter  
 - Dart  
 - Material Design  
-- REST API / Firebase (opsional)  
+- REST API / Supabase / Firebase (opsional)  
 
 ---
 
