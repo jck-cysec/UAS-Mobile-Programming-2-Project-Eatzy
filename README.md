@@ -2,14 +2,16 @@
   <img src="screenshots/banner.png" alt="Eatzy Banner" width="100%" />
 </p>
 
-<p align="center">
+<<p align="center">
   <img src="https://img.shields.io/badge/Flutter-3.x-blue?logo=flutter" />
   <img src="https://img.shields.io/badge/Dart-3.x-0175C2?logo=dart" />
   <img src="https://img.shields.io/badge/Platform-Android%20%7C%20iOS-green" />
   <img src="https://img.shields.io/badge/Supabase-Backend-3ECF8E?logo=supabase&logoColor=white" />
+  <img src="https://img.shields.io/badge/UAS-Mobile%20Programming%202-2E86DE?logo=googleclassroom&logoColor=white" />
   <img src="https://img.shields.io/badge/Status-Development-orange" />
   <img src="https://img.shields.io/badge/License-MIT-purple" />
 </p>
+
 
 
 <h1 align="center">🍽️ Eatzy</h1>
