@@ -17,7 +17,7 @@
 <h1 align="center">🍽️ Eatzy</h1>
 
 <p align="center">
-  <b>Kampus Praktis, Makan Nikmat!</b><br>
+  <b>Eatzy, Yuk Makan!</b><br>
   Aplikasi pemesanan makanan kampus berbasis Flutter
 </p>
 
