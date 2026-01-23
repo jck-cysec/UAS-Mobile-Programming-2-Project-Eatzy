@@ -1,0 +1,141 @@
+{
+  "info": {
+    "_postman_id": "eatzy-api-collection",
+    "name": "Eatzy API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Order",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "apikey", "value": "<SUPABASE_KEY>", "type": "text" },
+          { "key": "Authorization", "value": "Bearer <SUPABASE_KEY>", "type": "text" },
+          { "key": "Content-Type", "value": "application/json", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"user_id\": \"<uuid_user>\",\n  \"building_id\": \"<uuid_building>\",\n  \"delivery_type\": \"delivery\",\n  \"order_items\": [{\"food_id\": \"<uuid_food>\", \"quantity\": 2}],\n  \"delivery_address\": \"Gedung A Lt 2\",\n  \"payment_method\": \"cash\",\n  \"delivery_tip\": 5000\n}"
+        },
+        "url": {
+          "raw": "https://<project-ref>.supabase.co/rest/v1/orders",
+          "protocol": "https",
+          "host": ["<project-ref>", "supabase", "co"],
+          "path": ["rest", "v1", "orders"]
+        }
+      }
+    },
+    {
+      "name": "Get User Orders",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "apikey", "value": "<SUPABASE_KEY>", "type": "text" },
+          { "key": "Authorization", "value": "Bearer <SUPABASE_KEY>", "type": "text" }
+        ],
+        "url": {
+          "raw": "https://<project-ref>.supabase.co/rest/v1/orders?user_id=eq.<uuid_user>&select=*,order_items(*,food:food_menu(*)),users(*)",
+          "protocol": "https",
+          "host": ["<project-ref>", "supabase", "co"],
+          "path": ["rest", "v1", "orders"],
+          "query": [
+            { "key": "user_id", "value": "eq.<uuid_user>" },
+            { "key": "select", "value": "*,order_items(*,food:food_menu(*)),users(*)" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cancel Order",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "apikey", "value": "<SUPABASE_KEY>", "type": "text" },
+          { "key": "Authorization", "value": "Bearer <SUPABASE_KEY>", "type": "text" },
+          { "key": "Content-Type", "value": "application/json", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"cancelled\"\n}"
+        },
+        "url": {
+          "raw": "https://<project-ref>.supabase.co/rest/v1/orders?id=eq.<orderId>",
+          "protocol": "https",
+          "host": ["<project-ref>", "supabase", "co"],
+          "path": ["rest", "v1", "orders"],
+          "query": [
+            { "key": "id", "value": "eq.<orderId>" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Admin Orders",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "apikey", "value": "<SUPABASE_KEY>", "type": "text" },
+          { "key": "Authorization", "value": "Bearer <SUPABASE_KEY>", "type": "text" }
+        ],
+        "url": {
+          "raw": "https://<project-ref>.supabase.co/rest/v1/orders?select=*,order_items(*,food:food_menu(*)),users(*)&order=order_time.desc",
+          "protocol": "https",
+          "host": ["<project-ref>", "supabase", "co"],
+          "path": ["rest", "v1", "orders"],
+          "query": [
+            { "key": "select", "value": "*,order_items(*,food:food_menu(*)),users(*)" },
+            { "key": "order", "value": "order_time.desc" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Update Order Status",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "apikey", "value": "<SUPABASE_KEY>", "type": "text" },
+          { "key": "Authorization", "value": "Bearer <SUPABASE_KEY>", "type": "text" },
+          { "key": "Content-Type", "value": "application/json", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"completed\"\n}"
+        },
+        "url": {
+          "raw": "https://<project-ref>.supabase.co/rest/v1/orders?id=eq.<orderId>",
+          "protocol": "https",
+          "host": ["<project-ref>", "supabase", "co"],
+          "path": ["rest", "v1", "orders"],
+          "query": [
+            { "key": "id", "value": "eq.<orderId>" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Recover Recent Order",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "apikey", "value": "<SUPABASE_KEY>", "type": "text" },
+          { "key": "Authorization", "value": "Bearer <SUPABASE_KEY>", "type": "text" }
+        ],
+        "url": {
+          "raw": "https://<project-ref>.supabase.co/rest/v1/orders?user_id=eq.<uuid_user>&order_items.food_id=in.(<uuid_food>)&select=id,delivery_address,building_id,order_items(food_id,quantity)&order=order_time.desc&limit=10",
+          "protocol": "https",
+          "host": ["<project-ref>", "supabase", "co"],
+          "path": ["rest", "v1", "orders"],
+          "query": [
+            { "key": "user_id", "value": "eq.<uuid_user>" },
+            { "key": "order_items.food_id", "value": "in.(<uuid_food>)" },
+            { "key": "select", "value": "id,delivery_address,building_id,order_items(food_id,quantity)" },
+            { "key": "order", "value": "order_time.desc" },
+            { "key": "limit", "value": "10" }
+          ]
+        }
+      }
+    }
+  ]
+}

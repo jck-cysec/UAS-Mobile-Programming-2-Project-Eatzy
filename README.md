@@ -18,7 +18,7 @@
 
 <p align="center">
   <b>Eatzy, Yuk Makan!</b><br>
-  Aplikasi pemesanan makanan kampus berbasis Flutter
+  Aplikasi pemesanan makanan Kantin kampus berbasis Flutter
 </p>
 
 ---
@@ -74,15 +74,63 @@ flutter run
 
 ---
 
-## 📂 Struktur Folder (Contoh)
+## 📡 API — Postman Collection
+
+Kami menyertakan contoh collection Postman yang sesuai dengan endpoint REST Supabase yang dipakai dalam proyek ini. File collection tersedia di repository: [eatzy_postman_collection.json](eatzy_postman_collection.json)
+
+Petunjuk singkat:
+- Ganti `<project-ref>` dengan referensi proyek Supabase Anda (lihat pada Supabase project settings).
+- Ganti `<SUPABASE_KEY>` dengan `anon` atau `service_role` key sesuai kebutuhan (jangan commit service_role ke repo publik).
+- Jika ingin menggunakan curl / header manual, sertakan header berikut pada setiap request:
+
+```bash
+HEADER_APIBEARER="apikey: <SUPABASE_KEY>"
+AUTH_BEARER="Authorization: Bearer <SUPABASE_KEY>"
+CONTENT_TYPE="Content-Type: application/json"
+
+curl -H "$HEADER_APIBEARER" -H "$AUTH_BEARER" -H "$CONTENT_TYPE" \
+  https://<project-ref>.supabase.co/rest/v1/orders
+```
+
+Beberapa endpoint contoh disertakan di collection (Create Order, Get User Orders, Cancel Order, Get Admin Orders, Update Order Status, Recover Recent Order).
+
+
+## 📂 Struktur Folder (Project)
 
 ```text
 lib/
-├── models/
-├── screens/
-├── widgets/
-├── services/
-└── main.dart
+├── main.dart
+├── core/
+│   ├── config/          # api clients, env and configuration (e.g. api.dart)
+│   ├── constants/       # colors, sizes, strings
+│   └── utils/           # helpers and small utilities
+├── data/
+│   ├── models/          # data models (OrderModel, etc.)
+│   ├── services/        # network / supabase services
+│   └── repositories/    # optional: repository adapters
+├── features/
+│   ├── user/            # user flows (cart, payment_page, profile)
+│   ├── admin/           # admin pages (admin_orders_page, pending_orders_page)
+│   └── shared/          # shared feature widgets
+├── routes/              # route definitions
+├── state/               # providers / app state management
+└── widgets/             # shared UI widgets
+
+assets/
+├── images/
+│   └── logo/
+└── fonts/
+
+android/
+ios/
+linux/
+macos/
+windows/
+
+build/
+test/
+
+Note: struktur di atas disesuaikan dengan kode di project ini — terutama folder `lib/core`, `lib/data`, dan `lib/features` yang sudah ada.
 ```
 
 ---
