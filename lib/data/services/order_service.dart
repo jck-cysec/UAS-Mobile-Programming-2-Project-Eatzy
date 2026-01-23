@@ -203,7 +203,7 @@ class OrderService {
   @visibleForTesting
   Future<void> persistPendingOrderPayload(Map<String, dynamic> payload, [List<Map<String, dynamic>>? items]) async {
     final prefs = await SharedPreferences.getInstance();
-    final id = DateTime.now().toUtc().toIso8601String() + '-' + UniqueKey().toString();
+    final id = '${DateTime.now().toUtc().toIso8601String()}-${UniqueKey()}';
     final key = 'pending_order_$id';
     final toStore = Map<String, dynamic>.from(payload);
     if (items != null) toStore['items'] = items;
@@ -324,7 +324,7 @@ class OrderService {
       final normalizedShippingFee = (deliveryType == 'delivery') ? (shippingFee ?? 0.0) : 0.0;
       final normalizedPayment = paymentMethod ?? '';
 
-      // Compute subtotal and total safely
+      // Compute subtotal and total safely (floating point arithmetic internally)
       double computedSubtotal = 0.0;
       for (final it in items) {
         final qty = (it['qty'] is int) ? it['qty'] : int.tryParse(it['qty']?.toString() ?? '0') ?? 0;
@@ -334,7 +334,7 @@ class OrderService {
       if (!computedSubtotal.isFinite) computedSubtotal = 0.0;
       final computedTotal = (computedSubtotal + normalizedShippingFee).isFinite ? (computedSubtotal + normalizedShippingFee) : computedSubtotal;
 
-      // Build insert payload (normalize building/address based on content), include totals
+      // Build insert payload (normalize building/address based on content), include totals (still as doubles for internal usage)
       final orderPayload = buildOrderInsertPayload(
         userId: userId,
         deliveryType: deliveryType,
@@ -348,6 +348,28 @@ class OrderService {
       // Final sanitize to ensure no free-text inserted into UUID columns.
       sanitizeOrderPayload(orderPayload);
 
+      // Convert numeric fields expected by DB as integers to int here, right before inserts.
+      Map<String, dynamic> payloadForInsert = Map<String, dynamic>.from(orderPayload);
+
+      void _convertNumericFieldToInt(Map<String, dynamic> m, String key) {
+        if (!m.containsKey(key)) return;
+        final v = m[key];
+        if (v is int) return;
+        if (v is num) {
+          m[key] = v.toInt();
+          return;
+        }
+        // attempt parse string -> double -> int
+        final parsed = double.tryParse(v?.toString() ?? '');
+        if (parsed != null && parsed.isFinite) {
+          m[key] = parsed.toInt();
+        }
+      }
+
+      _convertNumericFieldToInt(payloadForInsert, 'delivery_tip');
+      _convertNumericFieldToInt(payloadForInsert, 'subtotal');
+      _convertNumericFieldToInt(payloadForInsert, 'total_price');
+
       // Attempt order INSERT with retries and backoff
       String orderId = '';
       const int maxAttempts = 3;
@@ -357,7 +379,7 @@ class OrderService {
         try {
           final orderInsert = await _client
               .from('orders')
-              .insert(orderPayload)
+              .insert(payloadForInsert)
               .select('id')
               .single();
           orderId = orderInsert['id'];
@@ -368,8 +390,8 @@ class OrderService {
 
           // If server lacks delivery_address (PGRST204) try stripping and retry immediately
           if (e.code == 'PGRST204' || errMsg.contains("Could not find the 'delivery_address'") || errMsg.contains('Could not find')) {
-            final attemptedAddress = orderPayload['delivery_address'] ?? orderPayload['building_id'];
-            final strippedPayload = Map<String, dynamic>.from(orderPayload);
+            final attemptedAddress = payloadForInsert['delivery_address'] ?? payloadForInsert['building_id'];
+            final strippedPayload = Map<String, dynamic>.from(payloadForInsert);
             strippedPayload.remove('delivery_address');
             strippedPayload.remove('building_id');
 
@@ -407,7 +429,7 @@ class OrderService {
 
           // All attempts exhausted: persist full pending order payload locally for repair
           try {
-            await persistPendingOrderPayload(orderPayload, items);
+            await persistPendingOrderPayload(payloadForInsert, items);
             if (kDebugMode) print('createOrder: persisted pending order after failed inserts');
           } catch (ePersist) {
             if (kDebugMode) print('createOrder: failed to persist pending order: $ePersist');
@@ -424,7 +446,7 @@ class OrderService {
           }
 
           try {
-            await persistPendingOrderPayload(orderPayload, items);
+            await persistPendingOrderPayload(payloadForInsert, items);
             if (kDebugMode) print('createOrder: persisted pending order after unexpected errors');
           } catch (ePersist) {
             if (kDebugMode) print('createOrder: failed to persist pending order: $ePersist');
@@ -684,7 +706,7 @@ class OrderService {
 
         // If we have an approximate delivery address, prefer candidate with matching address
         if (approxDeliveryAddress != null && approxDeliveryAddress.isNotEmpty) {
-          final addr = (c['delivery_address'] ?? c['building_id'])?.toString()?.toLowerCase() ?? '';
+          final addr = (c['delivery_address'] ?? c['building_id'])?.toString().toLowerCase() ?? '';
           if (addr.isNotEmpty && addr.contains(approxDeliveryAddress.toLowerCase())) {
             return c['id']?.toString();
           }
@@ -729,7 +751,7 @@ class OrderService {
             // Try profiles.id == uid
             try {
               final profRes = await _client.from('profiles').select('full_name').eq('id', uid).limit(1);
-              if (profRes is List && profRes.isNotEmpty) {
+              if (profRes.isNotEmpty) {
                 final profRow = Map<String, dynamic>.from(profRes.first as Map);
                 if (profRow['full_name'] != null) {
                   row['profiles'] = {'full_name': profRow['full_name']};
@@ -737,7 +759,7 @@ class OrderService {
               } else {
                 // Fallback: try profiles.user_id == uid
                 final profRes2 = await _client.from('profiles').select('full_name').eq('user_id', uid).limit(1);
-                if (profRes2 is List && profRes2.isNotEmpty) {
+                if (profRes2.isNotEmpty) {
                   final profRow2 = Map<String, dynamic>.from(profRes2.first as Map);
                   if (profRow2['full_name'] != null) {
                     row['profiles'] = {'full_name': profRow2['full_name']};

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '/core/constants/app_colors.dart';
 
 class HelpPrivacyPage extends StatefulWidget {
-  const HelpPrivacyPage({Key? key}) : super(key: key);
+  const HelpPrivacyPage({super.key});
 
   @override
   State<HelpPrivacyPage> createState() => _HelpPrivacyPageState();

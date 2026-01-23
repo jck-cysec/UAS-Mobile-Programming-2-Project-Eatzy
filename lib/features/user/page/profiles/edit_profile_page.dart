@@ -10,7 +10,7 @@ import '/data/services/auth_service.dart';
 import '/state/session_provider.dart';
 
 class EditProfilePage extends StatefulWidget {
-  const EditProfilePage({Key? key}) : super(key: key);
+  const EditProfilePage({super.key});
 
   @override
   State<EditProfilePage> createState() => _EditProfilePageState();

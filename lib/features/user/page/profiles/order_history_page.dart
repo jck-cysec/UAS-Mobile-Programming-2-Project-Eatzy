@@ -115,7 +115,7 @@ class _OrderHistoryPageState extends State<OrderHistoryPage> {
       /// ===================== BODY =====================
       body: MediaQuery(
         data: MediaQuery.of(context).copyWith(
-          textScaleFactor: math.min(MediaQuery.of(context).textScaleFactor, 1.2),
+          textScaler: TextScaler.linear(math.min(MediaQuery.of(context).textScaleFactor, 1.2)),
         ),
         child: !session.isLoggedIn
             ? Center(

@@ -10,7 +10,7 @@ import '/core/constants/app_colors.dart';
 
 class UserShellPage extends StatefulWidget {
   final int initialIndex;
-  const UserShellPage({Key? key, this.initialIndex = 0}) : super(key: key);
+  const UserShellPage({super.key, this.initialIndex = 0});
 
   @override
   State<UserShellPage> createState() => _UserShellPageState();

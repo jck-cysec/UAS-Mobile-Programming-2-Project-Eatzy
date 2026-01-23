@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '/core/constants/app_colors.dart';
 
 class HelpAboutPage extends StatefulWidget {
-  const HelpAboutPage({Key? key}) : super(key: key);
+  const HelpAboutPage({super.key});
 
   @override
   State<HelpAboutPage> createState() => _HelpAboutPageState();
@@ -160,13 +160,9 @@ class _HelpAboutPageState extends State<HelpAboutPage>
   Widget _footer() {
     return Column(
       children: [
-        Text('© ${DateTime.now().year} Eatzy',
+        Text('© ${DateTime.now().year} Team Eatzy, Let Easy and Eat',
             style: TextStyle(color: AppColors.textGrey, fontSize: 12)),
         const SizedBox(height: 4),
-        Text(
-          'Made with ❤️ for better food ordering',
-          style: TextStyle(color: AppColors.textGrey.withOpacity(0.7), fontSize: 11),
-        ),
       ],
     );
   }

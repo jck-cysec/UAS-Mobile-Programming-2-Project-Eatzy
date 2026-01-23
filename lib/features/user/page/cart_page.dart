@@ -184,7 +184,7 @@ class _CartPageState extends State<CartPage> with TickerProviderStateMixin {
 
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(
-        textScaleFactor: math.min(MediaQuery.of(context).textScaleFactor, 1.2),
+        textScaler: TextScaler.linear(math.min(MediaQuery.of(context).textScaleFactor, 1.2)),
       ),
       child: SafeArea(
         top: false,

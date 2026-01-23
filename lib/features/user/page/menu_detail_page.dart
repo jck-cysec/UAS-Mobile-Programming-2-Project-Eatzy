@@ -312,7 +312,7 @@ class _MenuDetailPageState extends State<MenuDetailPage> with SingleTickerProvid
       backgroundColor: AppColors.background,
       body: MediaQuery(
         data: MediaQuery.of(context).copyWith(
-          textScaleFactor: math.min(MediaQuery.of(context).textScaleFactor, 1.2),
+          textScaler: TextScaler.linear(math.min(MediaQuery.of(context).textScaleFactor, 1.2)),
         ),
         child: SafeArea(
           top: true,

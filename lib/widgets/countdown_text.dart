@@ -11,12 +11,12 @@ class CountdownText extends StatefulWidget {
   final DateTime Function()? nowProvider; // for testing
 
   const CountdownText({
-    Key? key,
+    super.key,
     required this.target,
     this.style,
     this.readyText = 'Siap',
     this.nowProvider,
-  }) : super(key: key);
+  });
 
   @override
   State<CountdownText> createState() => _CountdownTextState();
@@ -72,9 +72,9 @@ class _CountdownTextState extends State<CountdownText> {
     final minutes = d.inMinutes.remainder(60);
     final seconds = d.inSeconds.remainder(60);
 
-    if (hours > 0) return '${hours} jam ${minutes} menit';
-    if (minutes > 0) return '${minutes} menit ${seconds} detik';
-    return '${seconds} detik';
+    if (hours > 0) return '$hours jam $minutes menit';
+    if (minutes > 0) return '$minutes menit $seconds detik';
+    return '$seconds detik';
   }
 
   @override

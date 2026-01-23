@@ -234,7 +234,7 @@ class _LoginPageState extends State<LoginPage>
                     child: Column(
                       children: [
                         Text(
-                          'Selamat Datang! 👋',
+                          'Selamat Datang!',
                           style: Theme.of(context)
                               .textTheme
                               .headlineMedium

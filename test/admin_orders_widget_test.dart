@@ -35,7 +35,9 @@ class FakeOrderService extends OrderService {
 
   void dispose() {
     _ordersCtrl.close();
-    for (final c in _single.values) c.close();
+    for (final c in _single.values) {
+      c.close();
+    }
   }
 }
 

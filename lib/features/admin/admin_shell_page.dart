@@ -88,30 +88,6 @@ class _AdminShellPageState extends State<AdminShellPage> {
                   ),
                 ),
 
-                /// ================= ACTIONS =================
-                if (!isTiny && !isSmall)
-                  SizedBox(
-                    width: isMobile ? 180 : 260,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.grey[100],
-                        prefixIcon: const Icon(Icons.search_rounded),
-                        hintText: 'Cari...',
-                        contentPadding: const EdgeInsets.symmetric(vertical: 12),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide.none,
-                        ),
-                      ),
-                    ),
-                  )
-                else
-                  IconButton(
-                    icon: const Icon(Icons.search_rounded),
-                    onPressed: () => _showSearchDialog(context),
-                  ),
-
                 const SizedBox(width: 6),
 
                 // 🔔 Notifications (tetap ada)

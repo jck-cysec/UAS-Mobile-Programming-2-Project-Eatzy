@@ -59,11 +59,13 @@ class _PendingOrdersPageState extends State<PendingOrdersPage> {
     // Sort by key (newest last) for stable UI
     temp.sort((a, b) => a.key.compareTo(b.key));
 
-    if (mounted) setState(() {
+    if (mounted) {
+      setState(() {
       _entries.clear();
       _entries.addAll(temp);
       _loading = false;
     });
+    }
   }
 
   Future<void> _replayEntry(_PendingEntry entry) async {

@@ -6,7 +6,7 @@ import '/data/services/menu_service.dart';
 
 class AdminMenuFormPage extends StatefulWidget {
   final MenuModel? menu;
-  const AdminMenuFormPage({Key? key, this.menu}) : super(key: key);
+  const AdminMenuFormPage({super.key, this.menu});
 
   @override
   State<AdminMenuFormPage> createState() => _AdminMenuFormPageState();
@@ -549,11 +549,13 @@ class _AdminMenuFormPageState extends State<AdminMenuFormPage>
                           icon: Icons.attach_money,
                           keyboardType: TextInputType.number,
                           validator: (v) {
-                            if (v == null || v.trim().isEmpty)
+                            if (v == null || v.trim().isEmpty) {
                               return 'Harga wajib';
+                            }
                             final p = int.tryParse(v.trim());
-                            if (p == null || p <= 0)
+                            if (p == null || p <= 0) {
                               return 'Harga > 0';
+                            }
                             return null;
                           },
                         ),
@@ -573,11 +575,13 @@ class _AdminMenuFormPageState extends State<AdminMenuFormPage>
                           icon: Icons.schedule,
                           keyboardType: TextInputType.number,
                           validator: (v) {
-                            if (v == null || v.trim().isEmpty)
+                            if (v == null || v.trim().isEmpty) {
                               return 'Waktu wajib';
+                            }
                             final t = int.tryParse(v.trim());
-                            if (t == null || t < 0)
+                            if (t == null || t < 0) {
                               return 'Waktu >= 0';
+                            }
                             return null;
                           },
                         ),
@@ -681,7 +685,7 @@ class _AdminMenuFormPageState extends State<AdminMenuFormPage>
         ),
       ),
       child: DropdownButtonFormField<String>(
-        value: _category,
+        initialValue: _category,
         items: [
           DropdownMenuItem(
             value: 'makanan',
@@ -761,7 +765,7 @@ class _AdminMenuFormPageState extends State<AdminMenuFormPage>
             child: Switch(
               value: _isAvailable,
               onChanged: (v) => setState(() => _isAvailable = v),
-              activeColor: AppColors.success,
+              activeThumbColor: AppColors.success,
               inactiveThumbColor: AppColors.error,
             ),
           ),

@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '/data/models/order_model.dart';
 
-import 'package:eatzy_app/data/models/order_model.dart';
 
 /// Centralized lightweight API layer for order & user related REST calls
 /// Uses Supabase REST client underneath. This file intentionally keeps logic
@@ -127,10 +127,8 @@ class Api {
           .eq('user_id', userId)
           .order('order_time', ascending: false);
 
-      if (res is List) {
-        return _parseOrderList(res);
-      }
-      return [];
+      return _parseOrderList(res);
+          return [];
     } catch (e) {
       if (kDebugMode) debugPrint('Api.getUserOrders error: $e');
       return [];
@@ -164,8 +162,6 @@ class Api {
           .gte('order_time', cutoff)
           .order('order_time', ascending: false)
           .limit(10);
-
-      if (res is! List) return null;
       final candidates = (res as List).map((e) => Map<String, dynamic>.from(e as Map)).toList();
       final required = approxItems.map((i) => i['menu_id']?.toString()).whereType<String>().toList();
 
@@ -199,7 +195,7 @@ class Api {
   Future<List<OrderModel>> getAdminOrders() async {
     try {
       final res = await _client.from('orders').select('*, order_items(*, food:food_menu(*)), users(*)').order('order_time', ascending: false);
-      if (res is List) return _parseOrderList(res);
+      return _parseOrderList(res);
       return [];
     } catch (e) {
       if (kDebugMode) debugPrint('Api.getAdminOrders error: $e');
@@ -235,7 +231,7 @@ class Api {
 
   Future<void> _persistPendingOrder(Map<String, dynamic> payload) async {
     final prefs = await SharedPreferences.getInstance();
-    final id = DateTime.now().toUtc().toIso8601String() + '-' + UniqueKey().toString();
+    final id = '${DateTime.now().toUtc().toIso8601String()}-${UniqueKey()}';
     final key = 'pending_order_$id';
     try {
       await prefs.setString(key, jsonEncode(payload));
@@ -274,7 +270,7 @@ class Api {
         final payload = Map<String, dynamic>.from(jsonDecode(v) as Map);
         try {
           final res = await _client.from('orders').insert(payload).select('id').single();
-          if (res != null && res['id'] != null) {
+          if (res['id'] != null) {
             await prefs.remove(k);
             if (kDebugMode) debugPrint('Api.replayPendingOrders: replayed and removed $k');
           }

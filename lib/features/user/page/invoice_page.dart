@@ -126,7 +126,7 @@ class _InvoicePageState extends State<InvoicePage> {
       /// ===================== BODY =====================
       body: MediaQuery(
         data: MediaQuery.of(context).copyWith(
-          textScaleFactor: math.min(MediaQuery.of(context).textScaleFactor, 1.2),
+          textScaler: TextScaler.linear(math.min(MediaQuery.of(context).textScaleFactor, 1.2)),
         ),
         child: StreamBuilder<OrderModel?>(
           stream: service.streamOrderById(widget.orderId),
@@ -190,7 +190,7 @@ class _InvoicePageState extends State<InvoicePage> {
               );
             }
 
-            final _order = useOrder!;
+            final order = useOrder;
 
             return SingleChildScrollView(
               padding: const EdgeInsets.all(16.0),
@@ -199,7 +199,7 @@ class _InvoicePageState extends State<InvoicePage> {
                 children: [
                   /// ===== PARTIAL ORDER WARNING =====
                   FutureBuilder<bool>(
-                    future: _isPartialOrder(_order.id),
+                    future: _isPartialOrder(order.id),
                     builder: (ctx, psnap) {
                       final isPartial = psnap.data ?? false;
                       if (!isPartial) return const SizedBox.shrink();
@@ -274,7 +274,7 @@ class _InvoicePageState extends State<InvoicePage> {
                                     ),
                                     onPressed: () async {
                                       HapticFeedback.mediumImpact();
-                                      final ok = await OrderService().attachStoredItems(_order.id);
+                                      final ok = await OrderService().attachStoredItems(order.id);
                                       if (ctx.mounted) {
                                         ScaffoldMessenger.of(ctx).showSnackBar(
                                           SnackBar(
@@ -322,7 +322,7 @@ class _InvoicePageState extends State<InvoicePage> {
                                     onPressed: () {
                                       HapticFeedback.lightImpact();
                                       Clipboard.setData(
-                                        ClipboardData(text: 'Order:${_order.id} - partial'),
+                                        ClipboardData(text: 'Order:${order.id} - partial'),
                                       );
                                       ScaffoldMessenger.of(ctx).showSnackBar(
                                         SnackBar(
@@ -408,7 +408,7 @@ class _InvoicePageState extends State<InvoicePage> {
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
-                                    '#${_order.id.length >= 8 ? _order.id.substring(0, 8).toUpperCase() : _order.id.toUpperCase()}',
+                                    '#${order.id.length >= 8 ? order.id.substring(0, 8).toUpperCase() : order.id.toUpperCase()}',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w800,
                                       fontSize: 16,
@@ -432,7 +432,7 @@ class _InvoicePageState extends State<InvoicePage> {
                               child: _buildInfoItem(
                                 icon: Icons.schedule_rounded,
                                 label: 'Waktu',
-                                value: _formatDateTime(_order.orderTime),
+                                value: _formatDateTime(order.orderTime),
                                 color: Colors.blue,
                               ),
                             ),
@@ -441,8 +441,8 @@ class _InvoicePageState extends State<InvoicePage> {
                               child: _buildInfoItem(
                                 icon: Icons.info_outline_rounded,
                                 label: 'Status',
-                                value: _statusLabel(_order.status),
-                                color: _statusColor(_order.status),
+                                value: _statusLabel(order.status),
+                                color: _statusColor(order.status),
                               ),
                             ),
                           ],
@@ -452,11 +452,11 @@ class _InvoicePageState extends State<InvoicePage> {
 
                         // Use a single authoritative fetch when any important nested data is missing
                         FutureBuilder<OrderModel?>(
-                          future: (_order.customerName == 'Unknown User' || _order.paymentMethod == 'unknown' || _order.paymentMethod.isEmpty || _order.items.isEmpty)
-                              ? OrderService().fetchOrderById(_order.id)
-                              : Future.value(_order),
+                          future: (order.customerName == 'Unknown User' || order.paymentMethod == 'unknown' || order.paymentMethod.isEmpty || order.items.isEmpty)
+                              ? OrderService().fetchOrderById(order.id)
+                              : Future.value(order),
                           builder: (ctx, snap) {
-                            final enriched = snap.data ?? _order;
+                            final enriched = snap.data ?? order;
 
                             final displayName = (enriched.customerName.isNotEmpty && enriched.customerName != 'Unknown User')
                                 ? enriched.customerName
@@ -508,7 +508,7 @@ class _InvoicePageState extends State<InvoicePage> {
                         ),
 
                         /// PREPARE UNTIL
-                        if (_order.prepareUntil != null) ...[
+                        if (order.prepareUntil != null) ...[
                           const SizedBox(height: 12),
                           Container(
                             padding: const EdgeInsets.all(14),
@@ -540,7 +540,7 @@ class _InvoicePageState extends State<InvoicePage> {
                                   ),
                                 ),
                                 CountdownText(
-                                  target: _order.prepareUntil!,
+                                  target: order.prepareUntil!,
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w700,
                                     fontSize: 14,
@@ -566,7 +566,7 @@ class _InvoicePageState extends State<InvoicePage> {
                             ),
                             const SizedBox(width: 8),
                             Text(
-                              'Items (${_order.items.length})',
+                              'Items (${order.items.length})',
                               style: const TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 16,
@@ -580,10 +580,10 @@ class _InvoicePageState extends State<InvoicePage> {
                         ListView.separated(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: _order.items.length,
+                          itemCount: order.items.length,
                           separatorBuilder: (_, __) => const Divider(height: 24),
                           itemBuilder: (_, i) {
-                            final it = _order.items[i];
+                            final it = order.items[i];
                             return Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -658,16 +658,16 @@ class _InvoicePageState extends State<InvoicePage> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text('Subtotal', style: TextStyle(color: Colors.grey[700])),
-                                  Text('Rp ${_order.subtotal.toStringAsFixed(0)}', style: const TextStyle(fontWeight: FontWeight.w600)),
+                                  Text('Rp ${order.subtotal.toStringAsFixed(0)}', style: const TextStyle(fontWeight: FontWeight.w600)),
                                 ],
                               ),
-                              if ((_order.deliveryTip) > 0) ...[
+                              if ((order.deliveryTip) > 0) ...[
                                 const SizedBox(height: 8),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text('Biaya Pengiriman', style: TextStyle(color: Colors.grey[700])),
-                                    Text('Rp ${_order.deliveryTip.toStringAsFixed(0)}', style: const TextStyle(fontWeight: FontWeight.w600)),
+                                    Text('Rp ${order.deliveryTip.toStringAsFixed(0)}', style: const TextStyle(fontWeight: FontWeight.w600)),
                                   ],
                                 ),
                               ],
@@ -676,7 +676,7 @@ class _InvoicePageState extends State<InvoicePage> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   const Text('Total', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18)),
-                                  Text('Rp ${_order.totalPrice.toStringAsFixed(0)}', style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 20, color: Colors.green, letterSpacing: -0.5)),
+                                  Text('Rp ${order.totalPrice.toStringAsFixed(0)}', style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 20, color: Colors.green, letterSpacing: -0.5)),
                                 ],
                               ),
                             ],
@@ -708,7 +708,7 @@ class _InvoicePageState extends State<InvoicePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => OrderStatusPage(orderId: _order.id),
+                                  builder: (_) => OrderStatusPage(orderId: order.id),
                                 ),
                               );
                             },

@@ -84,8 +84,11 @@ class OrderModel {
     double parsedDeliveryTip = 0.0;
     try {
       final dt = map['delivery_tip'] ?? map['deliveryTip'] ?? map['delivery_fee'] ?? map['deliveryFee'];
-      if (dt is num) parsedDeliveryTip = dt.toDouble();
-      else parsedDeliveryTip = double.tryParse(dt?.toString() ?? '0') ?? 0.0;
+      if (dt is num) {
+        parsedDeliveryTip = dt.toDouble();
+      } else {
+        parsedDeliveryTip = double.tryParse(dt?.toString() ?? '0') ?? 0.0;
+      }
     } catch (_) {
       parsedDeliveryTip = 0.0;
     }
@@ -95,8 +98,11 @@ class OrderModel {
     try {
       final t = map['total_price'] ?? map['total'];
       if (t != null) {
-        if (t is num) total = t.toDouble();
-        else total = double.tryParse(t.toString()) ?? (computedSubtotal + parsedDeliveryTip);
+        if (t is num) {
+          total = t.toDouble();
+        } else {
+          total = double.tryParse(t.toString()) ?? (computedSubtotal + parsedDeliveryTip);
+        }
       } else {
         total = computedSubtotal + parsedDeliveryTip;
       }

@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // Clear in-memory caches when logging out
 import '/data/services/cart_service.dart';
-import '/data/services/menu_service.dart';
 
 enum AuthStatus {
   initial,

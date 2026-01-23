@@ -320,7 +320,7 @@ class _RegisterPageState extends State<RegisterPage>
                 child: Column(
                   children: [
                     Text(
-                      'Daftar Sekarang! 🍔',
+                      'Daftar Sekarang!',
                       style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                             fontWeight: FontWeight.bold,
                             color: AppColors.primary,

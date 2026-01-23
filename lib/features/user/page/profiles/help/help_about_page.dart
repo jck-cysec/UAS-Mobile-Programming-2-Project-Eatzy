@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '/core/constants/app_colors.dart';
 
 class HelpAboutPage extends StatefulWidget {
-  const HelpAboutPage({Key? key}) : super(key: key);
+  const HelpAboutPage({super.key});
 
   @override
   State<HelpAboutPage> createState() => _HelpAboutPageState();
