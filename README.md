@@ -108,6 +108,45 @@ cd eatzy
 flutter pub get
 flutter run
 ```
+---
+
+## 📦 Download Release APK
+
+Aplikasi **Eatzy** tersedia dalam bentuk file **APK (Android)** yang dapat diunduh dan diinstal langsung tanpa perlu menjalankan source code.
+
+### 🔽 Download APK
+- **Versi** : v1.0 (Release)
+- **Platform** : Android
+- **Minimum Android** : Android 8.0 (Oreo)
+- **Arsitektur** : arm64-v8a
+
+👉 **Link Download:**  
+[Download Eatzy APK](https://github.com/username/eatzy/releases/download/v1.0.0/eatzy-release.apk)
+
+---
+
+### 📲 Cara Instal APK
+1. Unduh file APK melalui link di atas  
+2. Buka file APK di perangkat Android  
+3. Aktifkan izin **Install from Unknown Sources** jika diminta  
+4. Lanjutkan proses instalasi  
+5. Aplikasi siap digunakan 🎉
+
+---
+
+### ⚠️ Catatan
+- APK ini merupakan **hasil build release** untuk keperluan akademik
+- Aplikasi tidak tersedia di Google Play Store
+- Jika terjadi kendala login atau data, pastikan konfigurasi Supabase aktif
+
+---
+
+### 🛠️ Build APK Manual (Opsional)
+Jika ingin membangun APK sendiri dari source code:
+
+```bash
+flutter build apk --release
+```
 
 ---
 
