@@ -121,7 +121,7 @@ Aplikasi **Eatzy** tersedia dalam bentuk file **APK (Android)** yang dapat diund
 - **Arsitektur** : arm64-v8a
 
 👉 **Link Download:**  
-[Download Eatzy APK](https://github.com/username/eatzy/releases/download/v1.0.0/eatzy-release.apk)
+[Download Eatzy APK]([https://github.com/username/eatzy/releases/download/v1.0.0/eatzy-release.apk](https://github.com/jck-cysec/UAS-Mobile-Programming-2-Project-Eatzy/blob/2195633b6d4b00c310a706bd0f094327c389cf1a/Eatzy-Release.apk))
 
 ---
 
