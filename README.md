@@ -100,6 +100,64 @@ Berikut adalah preview antarmuka utama aplikasi **Eatzy** yang dibagi menjadi du
 
 ---
 
+## 🌐 Web Preview (Netlify)
+
+Sebagai pendukung dokumentasi dan presentasi proyek, **Eatzy** juga menyediakan **preview berbasis web** yang di-deploy menggunakan **Netlify**.  
+Versi web ini menampilkan **alur utama aplikasi**, termasuk **autentikasi pengguna**, tanpa perlu instalasi APK.
+
+### 🔗 Link Preview
+👉 **Netlify Live Preview:**  
+[https://eatzy.netlify.app](https://eatandeasy.netlify.app/)
+
+---
+
+### 🔐 Autentikasi (Login & Register)
+Preview Netlify **sudah mendukung fitur autentikasi**, meliputi:
+- Login pengguna
+- Registrasi akun baru
+- Validasi peran (User / Admin)
+
+Autentikasi terhubung dengan backend **Supabase Auth**, sehingga alur login & register dapat dicoba secara langsung melalui web.
+
+---
+
+### 👀 Cakupan Preview
+
+#### 👤 User Preview
+- Login & Register
+- Melihat daftar menu
+- Detail menu makanan
+- Keranjang (cart)
+- Ringkasan pesanan
+
+#### 🛠️ Admin Preview
+- Login Admin
+- Daftar pesanan masuk
+- Detail pesanan
+- Informasi pelanggan
+- Update status pemesanan
+
+---
+
+### 📌 Tujuan Penggunaan Netlify
+- Mempermudah **review UI dan alur sistem**
+- Menjadi media **demonstrasi login User & Admin**
+- Mendukung **presentasi UAS Mobile Programming**
+
+---
+
+### ⚠️ Catatan Teknis
+- Fokus utama versi web adalah **alur UI/UX dan autentikasi**
+- Beberapa fitur lanjutan (misalnya notifikasi real-time atau optimasi native) hanya berjalan optimal di aplikasi mobile
+- Versi web tidak menggantikan pengalaman native Flutter sepenuhnya
+
+---
+
+<p align="center">
+  🌍 Web preview deployed via Netlify
+</p>
+
+
 ## 🚀 Instalasi & Menjalankan Project
 
 ```bash
