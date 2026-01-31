@@ -140,11 +140,13 @@ Note: struktur di atas disesuaikan dengan kode di project ini — terutama folde
 Proyek **Eatzy** dikembangkan sebagai bagian dari pemenuhan **Ujian Akhir Semester (UAS)** pada mata kuliah **Mobile Programming 2**.
 
 **Detail Akademik:**
-- Mata Kuliah : Mobile Programming 2  
+- Dosen Pengampu : Muhammad Ikhwan Fathulloh, S.Kom.
+- Mata Kuliah : Mobile Programming 2
+- Nama : Haidir Mirza Ahmad Zacky
+- NIM : 23552011072  
 - Semester : 5  
 - Program Studi : Teknik Informatika  
 - Perguruan Tinggi : Universitas Teknologi Bandung  
-- Dosen Pengampu : —  
 
 ---
 
