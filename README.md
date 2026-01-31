@@ -1,7 +1,6 @@
 <p align="center">
   <img src="screenshots/banner.png" alt="Eatzy Banner" width="100%" />
 </p>
-
 <<p align="center">
   <img src="https://img.shields.io/badge/Flutter-3.x-blue?logo=flutter" />
   <img src="https://img.shields.io/badge/Dart-3.x-0175C2?logo=dart" />
@@ -60,6 +59,44 @@ Eatzy tidak dibuat sebagai aplikasi delivery berskala besar. Fokus utama aplikas
 - ⏰ Pemilihan waktu pengambilan (pick-up time)  
 - 🛒 Pemesanan makanan langsung dari aplikasi  
 - 🎨 Antarmuka ringan dan user-friendly  
+
+---
+
+## 📸 Screenshots Aplikasi
+
+Berikut adalah preview antarmuka utama aplikasi **Eatzy** yang dibagi menjadi dua peran pengguna, yaitu **User** dan **Admin**.
+
+---
+
+### 👤 User Preview
+<p align="center">
+  <img src="screenshots/user/home.png" alt="User Home" width="30%" />
+  <img src="screenshots/user/cart.png" alt="User Cart" width="30%" />
+  <img src="screenshots/user/profile.png" alt="User Profile width="30%" />
+</p>
+
+<p align="center">
+  <img src="screenshots/user/checkout.png" alt="User Checkout" width="30%" />
+  <img src="screenshots/user/status.png" alt="User Order Status" width="30%" />
+</p>
+
+---
+
+### 🧑‍💼 Admin Preview
+<p align="center">
+  <img src="screenshots/admin/dashboard.png" alt="Admin Dashboard" width="30%" />
+  <img src="screenshots/admin/orders.png" alt="Admin Order" width="30%" />
+  <img src="screenshots/admin/menu.png" alt="Admin Menu" width="30%" />
+  <img src="screenshots/admin/profile.png" alt="Admin Profile" width="30%" />
+</p>
+
+---
+
+### ℹ️ Keterangan
+- Screenshot disimpan pada folder `screenshots/`
+- Gambar menampilkan alur utama penggunaan aplikasi
+- UI dapat berubah sesuai proses pengembangan
+
 
 ---
 
@@ -140,11 +177,13 @@ Note: struktur di atas disesuaikan dengan kode di project ini — terutama folde
 Proyek **Eatzy** dikembangkan sebagai bagian dari pemenuhan **Ujian Akhir Semester (UAS)** pada mata kuliah **Mobile Programming 2**.
 
 **Detail Akademik:**
-- Mata Kuliah : Mobile Programming 2  
+- Dosen Pengampu : Muhammad Ikhwan Fathulloh, S.Kom.
+- Mata Kuliah : Mobile Programming 2
+- Nama : Haidir Mirza Ahmad Zacky
+- NIM : 23552011072  
 - Semester : 5  
 - Program Studi : Teknik Informatika  
 - Perguruan Tinggi : Universitas Teknologi Bandung  
-- Dosen Pengampu : —  
 
 ---
 
